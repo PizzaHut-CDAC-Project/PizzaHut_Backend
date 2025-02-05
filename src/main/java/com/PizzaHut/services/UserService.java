@@ -1,6 +1,7 @@
 package com.PizzaHut.services;
 
-import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,9 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	// to check user by email
 	public User searchByEmail(String email) {
@@ -27,5 +31,23 @@ public class UserService {
 		else
 			return emailCheck;
 	}
-	
+
+
+	// to check user by mobile
+		public User searchByPhone(String phNumber) {
+			User phCheck = userDao.findByPhoneNo(phNumber);
+			if (phCheck == null)
+				return null;
+			else
+				return phCheck;
+		}
+
+
+		// to add user
+		public User addUser(User user) {
+			String encodedPassword = encoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
+			userDao.save(user);
+			return user;
+		}
 }
