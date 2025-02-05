@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,21 @@ public class ToppingController {
 		}
 		
 	}
+	
+	//get topping by topping ID
+		@GetMapping("/{toppingId}")
+		public ResponseEntity<?> findByToppingId(@PathVariable("toppingId") int toppingId) {
+			try {
+				System.out.println("In controller");
+				List<Topping> result = toppingsService.findByToppingId(toppingId);
+				System.out.println(result);
+				if (result == null)
+					return Response.error("No result");
+				return Response.success(result);
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
 
 	
 	

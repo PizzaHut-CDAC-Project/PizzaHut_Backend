@@ -1,5 +1,6 @@
 package com.PizzaHut.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class ToppingService {
 	}
 	public Topping addTopping(Topping topping) {
 		return toppingDao.save(topping);
+	}
+	public List<Topping> findByToppingId(int toppingId) {
+		Topping toppings = toppingDao.getById(toppingId);
+		List<Topping> toppingList = new ArrayList<Topping>();
+		toppingList.add(toppings);
+		return toppingList;
 	}
 
 	
