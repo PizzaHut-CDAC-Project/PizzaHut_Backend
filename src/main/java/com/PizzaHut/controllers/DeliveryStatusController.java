@@ -49,5 +49,22 @@ public class DeliveryStatusController {
 			return Response.error(e.getMessage());
 		}
 	}
+	
+	@GetMapping("/alldelivery")
+	public ResponseEntity<?> getAllDelivery() {
+		try {
+			List<DeliveryStatus> allDelList = statusService.getAllDeliveryStatus();
+			if (!allDelList.isEmpty()) {
+				return Response.success(allDelList);
+			} else {
+				return Response.error("No deliveries");
+			}
+		} catch (Exception e) {
+			return Response.error(e.getMessage());
+		}
+		
+	}
+	
+	
  }
 

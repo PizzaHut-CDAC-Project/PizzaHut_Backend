@@ -40,6 +40,8 @@ public class DeliveryStatusService {
 		return add;
 	}
 	
- 
+	public List<DeliveryStatus> getAllDeliveryStatus() {
+		return statusDao.findAllDeliveryStatus();
+	}
 
 }
