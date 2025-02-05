@@ -29,6 +29,8 @@ public class ToppingService {
 		toppingList.add(toppings);
 		return toppingList;
 	}
+	public void updateTopping(Double price, String toppingName, Integer toppingId) {
+		 toppingDao.updateToppingById(price,toppingName,toppingId);
 
-	
+	}
 }
