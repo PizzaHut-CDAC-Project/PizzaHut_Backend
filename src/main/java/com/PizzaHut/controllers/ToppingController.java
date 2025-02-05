@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +65,21 @@ public class ToppingController {
 			} catch (Exception e) {
 				return Response.error(e.getMessage());
 			}
+		}
+		
+		@PutMapping("/updateTopping/{toppingId}")
+		public ResponseEntity<?> updateTopping(@PathVariable("toppingId") int toppingId,@RequestBody Topping topping){
+			try {
+			toppingsService.updateTopping(topping.getPrice(),topping.getToppingName(),toppingId );
+			System.out.println(topping);
+			System.out.println(toppingId);
+			
+				return Response.success("Successfully updated");
+			
+			
+			}catch(Exception e) {
+				return Response.error(e.getMessage());
+			}	
 		}
 
 	
