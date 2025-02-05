@@ -7,7 +7,5 @@ import com.PizzaHut.entities.Topping;
 
 
 public interface ToppingDao extends JpaRepository<Topping, Integer>{
-	
-	
-	
+
 }

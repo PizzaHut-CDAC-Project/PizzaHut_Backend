@@ -19,6 +19,9 @@ public class ToppingService {
 	public List<Topping> findAllToppings() {
 		return toppingDao.findAll();
 	}
+	public Topping addTopping(Topping topping) {
+		return toppingDao.save(topping);
+	}
 
 	
 }
