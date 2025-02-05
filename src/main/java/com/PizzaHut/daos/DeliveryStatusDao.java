@@ -11,5 +11,6 @@ import com.PizzaHut.entities.User;
 public interface DeliveryStatusDao extends JpaRepository<DeliveryStatus	,Integer>{
 	List<DeliveryStatus> findByUser(User user);
 	
-	 
+	@Query(value="select * from DeliveryStatus where deliveryStatus != 'Delivered'",nativeQuery = true )
+	List<DeliveryStatus> findAllDeliveryStatus();
 }
