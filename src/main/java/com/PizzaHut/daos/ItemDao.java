@@ -10,4 +10,6 @@ public interface ItemDao extends JpaRepository<Item, Integer> {
 
 	List<Item> findAllPizza();
 
+	List<Item> findByType(String type);
+
 }

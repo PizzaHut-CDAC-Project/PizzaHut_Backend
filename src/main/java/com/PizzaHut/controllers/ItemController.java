@@ -43,7 +43,6 @@ public class ItemController {
 		return Response.success(itemService.addPizza(pizza));
 	}
 
-	
 	// get item by itemId
 	@GetMapping("/getbyid/{itemId}")
 	public ResponseEntity<?> findByItemId(@PathVariable("itemId") int itemId) {
@@ -53,6 +52,20 @@ public class ItemController {
 			if (result == null)
 				return Response.error("No result found");
 			return Response.success(result);
+		} catch (Exception e) {
+			return Response.error(e.getMessage());
+		}
+	}
+
+	// get all by type
+	@GetMapping("/bytype/{type}")
+	public ResponseEntity<?> getByType(@PathVariable("type") String type) {
+		try {
+			System.out.println("In controller");
+			List<Item> listByItem = itemService.findByType(type);
+			if (listByItem == null)
+				return Response.error("No result found");
+			return Response.success(listByItem);
 		} catch (Exception e) {
 			return Response.error(e.getMessage());
 		}

@@ -33,4 +33,12 @@ public class ItemService {
 		return item;
 	}
 
+	public List<Item> findByType(String type) {
+		List<Item> listBytype = itemDao.findByType(type);
+		if(listBytype != null) {
+			return listBytype;
+		}
+		return null;
+	}
+
 }
