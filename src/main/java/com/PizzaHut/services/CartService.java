@@ -49,5 +49,10 @@ public class CartService {
 		return "cart Status updated "+delId+" "+userid;
 	}
 	
+	// delete from cart
+		public int deleteByCartId(int cartId) {
+			cartDao.deleteById(cartId);
+			return 1;
+		}
 	 
 }
