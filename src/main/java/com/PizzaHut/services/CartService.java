@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.PizzaHut.daos.CartDao;
 import com.PizzaHut.dtos.CartDto;
+import com.PizzaHut.dtos.CartDtoWithoutTopping;
 import com.PizzaHut.dtos.DtoEntityConvertor;
 import com.PizzaHut.entities.Cart;
 import com.PizzaHut.entities.DeliveryStatus;
@@ -29,6 +30,15 @@ public class CartService {
 			cartDao.save(cartAdd);
 			return cartAdd;
 		}
+		
+		// add in cart without topping
+		public Cart addTocart(CartDtoWithoutTopping cartWithoutTopping) {
+			Cart cartAddNoTopping = convertor.tocartEntityNoTopping(cartWithoutTopping);
+			System.out.println(cartAddNoTopping);
+			cartDao.save(cartAddNoTopping);
+			return cartAddNoTopping;
+		}
+
 	
 	// add foreignKey
 	public String addForeignKey(int delId, int userid) {
