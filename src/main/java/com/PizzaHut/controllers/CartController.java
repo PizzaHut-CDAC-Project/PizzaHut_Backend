@@ -57,7 +57,14 @@ public class CartController {
 				return Response.error(e.getMessage());
 			}
 		}
-		
-	 
-
+		 
+		// Delete Cart by cartId
+		@DeleteMapping("/deleteById/{cartId}")
+		public ResponseEntity<?> deleteCart(@PathVariable("cartId") int cartId) {
+			int count = cartService.deleteByCartId(cartId);
+			if (count == 1) {
+				return Response.success("Deleted");
+			} else
+				return Response.error("id not found");
+		}
 }
