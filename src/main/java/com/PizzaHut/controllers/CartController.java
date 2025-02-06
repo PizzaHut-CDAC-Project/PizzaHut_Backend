@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.PizzaHut.dtos.CartDto;
+import com.PizzaHut.dtos.CartDtoWithoutTopping;
 import com.PizzaHut.entities.Cart;
 import com.PizzaHut.services.CartService;
 
@@ -40,5 +41,21 @@ public class CartController {
 			return Response.error(e.getMessage());
 		}
 	}
+	
+	// add without topping
+		@PostMapping("/addWithoutToppings")
+		public ResponseEntity<?> addToCartNoTopping(@RequestBody CartDtoWithoutTopping cartWithoutTopping) {
+			try {
+				System.out.println(cartWithoutTopping);
+				Cart addTocart = cartService.addTocart(cartWithoutTopping);
+				if (addTocart != null) {
+					return Response.success(addTocart);
+				} else {
+					return Response.error("failed to add to cart");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
 
 }

@@ -51,6 +51,22 @@ public class DtoEntityConvertor {
 		convertedcart.setCartstatus(1);
 		return convertedcart;
 	}
+	
+	//cartdto to cart
+		public Cart tocartEntityNoTopping(CartDtoWithoutTopping cartWithoutTopping) {
+			System.out.println("In convertor");
+			Cart convertedcart = new Cart();
+			User user= new User();
+			user.setUserId(cartWithoutTopping.getUserId());
+			ItemSize itemSize = new ItemSize();
+			itemSize.setSizeId(cartWithoutTopping.getSizeId());
+			convertedcart.setUser(user);
+			convertedcart.setItemsize(itemSize);
+			convertedcart.setQuantity(cartWithoutTopping.getQuantity());
+			convertedcart.setPrice(cartWithoutTopping.getPrice());
+			convertedcart.setCartstatus(1);
+			return convertedcart;
+		}
 }
 
 
