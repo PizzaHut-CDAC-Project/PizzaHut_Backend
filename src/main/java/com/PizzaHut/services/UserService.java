@@ -3,12 +3,15 @@ package com.PizzaHut.services;
 
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PizzaHut.daos.UserDao;
+import com.PizzaHut.dtos.CredentialsDto;
 import com.PizzaHut.entities.User;
 
 
@@ -49,5 +52,16 @@ public class UserService {
 			user.setPassword(encodedPassword);
 			userDao.save(user);
 			return user;
+		}
+
+
+		// to get user for sign in
+		public User getUser(CredentialsDto cred) {
+			User signinUser = userDao.findByEmail(cred.getEmail());
+			String rawPasword = cred.getPassword();
+			if (signinUser != null && encoder.matches(rawPasword, signinUser.getPassword()) && signinUser.getRole().equals("User")) {
+				return signinUser;
+			} else
+				return null;
 		}
 }

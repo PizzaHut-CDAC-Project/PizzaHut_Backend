@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PizzaHut.dtos.CredentialsDto;
 import com.PizzaHut.entities.User;
 import com.PizzaHut.services.UserService;
 
@@ -59,6 +60,20 @@ public class UserController {
 			return Response.error(e.getMessage());
 		}
 	}
+	
+	
+	
+	// API for sign in of User
+		@PostMapping("/signin")
+		public ResponseEntity<?> signInUser(@Valid @RequestBody CredentialsDto cred) {
+			User userSignIn = userService.getUser(cred);
+			if (userSignIn != null) {
+				return Response.success(userSignIn);
+			} else {
+				return Response.error("Invalid Credentials");
+			}
+		}
+	
 
 
 }
