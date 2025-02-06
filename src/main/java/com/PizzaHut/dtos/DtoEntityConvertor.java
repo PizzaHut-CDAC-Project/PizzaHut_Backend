@@ -52,6 +52,17 @@ public class DtoEntityConvertor {
 		return convertedcart;
 	}
 	
+	
+	public User toUserEntity(UserDto dto) {
+		User entity = new User();
+		entity.setFirstName(dto.getFirstName());
+		entity.setLastName(dto.getLastName());
+		entity.setEmail(dto.getEmail());
+		entity.setPassword(dto.getPassword());
+		entity.setPhoneNo(dto.getPhoneNo());
+		return entity;		
+	}
+	
 	//cartdto to cart
 		public Cart tocartEntityNoTopping(CartDtoWithoutTopping cartWithoutTopping) {
 			System.out.println("In convertor");
