@@ -9,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.PizzaHut.services.ImageHandlerService;
 
@@ -29,6 +32,12 @@ public class toppingImgController {
 		return new ResponseEntity<>(fileService.getToppingImage(toppingId), HttpStatus.OK);
 	}
 	
+
+	@PostMapping(value = "/addtoppingthumbnail/{toppingId}", consumes = "multipart/form-data")
+	public ResponseEntity<?> addItemImage(@RequestBody MultipartFile imageFile, @PathVariable Integer toppingId)
+			throws IOException {
+		return new ResponseEntity<>(fileService.uploadToppingImage(toppingId, imageFile), HttpStatus.OK);
+	}
 
 	
 	
