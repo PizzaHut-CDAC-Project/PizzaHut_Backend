@@ -27,4 +27,10 @@ public class ItemService {
 		return itemDao.findAllPizza();
 	}
 
+	// show selected item by it's Id
+	public Item findByItemId(int itemId) {
+		Item item = itemDao.getById(itemId);
+		return item;
+	}
+
 }
