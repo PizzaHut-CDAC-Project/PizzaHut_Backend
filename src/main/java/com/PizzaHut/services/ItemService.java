@@ -35,6 +35,7 @@ public class ItemService {
 		item.setItemName(itemDto.getItemName());
 		item.setType(itemDto.getType());
 		return "updated successfully";
+	}
 
 	// show selected item by it's Id
 	public Item findByItemId(int itemId) {
