@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.PizzaHut.dtos.CredentialsDto;
+import com.PizzaHut.dtos.UserDto;
 import com.PizzaHut.entities.User;
 import com.PizzaHut.services.UserService;
 
@@ -75,6 +77,24 @@ public class UserController {
 		}
 	
 		
+		
+		//to update user
+		@PutMapping("/update/{userId}")
+		public ResponseEntity<?> editUsers(@PathVariable("userId")int userId,
+				@RequestBody UserDto dto)
+		{
+			try {
+				User editUsers=userService.editUsers(userId, dto);
+				System.out.println("THIS IS=>>>"+editUsers);
+				if(editUsers!=null) {
+					return Response.success(editUsers);
+				}else {
+					return Response.error("Something went wrong");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
 		
 		
 
