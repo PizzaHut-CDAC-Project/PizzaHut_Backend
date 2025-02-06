@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,20 @@ public class ItemController {
 	public ResponseEntity<?> addPizza(@RequestBody ItemDto pizza) {
 		System.out.println("in add pizza");
 		return Response.success(itemService.addPizza(pizza));
+	}
+	
+	
+	@PutMapping("/updateItem/{itemId}")
+	public ResponseEntity<?> updateItem(@PathVariable Integer itemId, @RequestBody ItemDto itemDto){
+		try {
+			System.out.println("in updateItem/{itemId}");
+			String updateStatus=itemService.updateItem(itemId, itemDto);
+			if (updateStatus == null)
+				return Response.error("No result found");
+			return Response.success(updateStatus);
+		}catch(Exception e) {
+			return Response.error(e.getMessage());
+		}
 	}
 
 }

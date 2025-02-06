@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.PizzaHut.daos.ItemDao;
 import com.PizzaHut.dtos.ItemDto;
 import com.PizzaHut.entities.Item;
+import com.app.custom_exceptions.ResourceNotFoundException;
 
 public class ItemService {
 
@@ -25,6 +26,14 @@ public class ItemService {
 	// show all items in the list
 	public List<Item> findAllItem() {
 		return itemDao.findAllPizza();
+	}
+
+	public String updateItem(Integer itemId, ItemDto itemDto) {
+		Item item= itemDao.findById(itemId).orElseThrow(()->new ResourceNotFoundException("No such item exists"));
+		item.setDescription(itemDto.getDescription());
+		item.setItemName(itemDto.getItemName());
+		item.setType(itemDto.getType());
+		return "updated successfully";
 	}
 
 }
