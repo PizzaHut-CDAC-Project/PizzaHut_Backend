@@ -9,6 +9,7 @@ import com.PizzaHut.entities.Item;
 import com.PizzaHut.entities.ItemImage;
 import com.PizzaHut.entities.ItemSize;
 import com.PizzaHut.entities.Payment;
+import com.PizzaHut.entities.Topping;
 import com.PizzaHut.entities.User;
  
 
@@ -31,6 +32,24 @@ public class DtoEntityConvertor {
 		convertDelivery.setUser(user);
 		convertDelivery.setAddress(address);
 		return convertDelivery;
+	}
+	
+	public Cart tocartEntity(CartDto cartDto) {
+		System.out.println("In convertor");
+		Cart convertedcart = new Cart();
+		User user= new User();
+		user.setUserId(cartDto.getUserId());
+		ItemSize itemSize = new ItemSize();
+		itemSize.setSizeId(cartDto.getSizeId());
+		Topping topping = new Topping();
+		topping.setToppingId(cartDto.getToppingId());
+		convertedcart.setUser(user);
+		convertedcart.setItemsize(itemSize);
+		convertedcart.setTopping(topping);
+		convertedcart.setQuantity(cartDto.getQuantity());
+		convertedcart.setPrice(cartDto.getPrice());
+		convertedcart.setCartstatus(1);
+		return convertedcart;
 	}
 }
 
