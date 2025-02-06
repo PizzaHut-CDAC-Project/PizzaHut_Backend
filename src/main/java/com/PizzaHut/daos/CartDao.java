@@ -16,4 +16,7 @@ public interface CartDao extends JpaRepository<Cart, Integer>{
 	@Modifying
 	@Query(value = "update cart set deliveryId=?1 where userId =?2 and deliveryId is null", nativeQuery = true)
 	Integer addForeign(Integer delid,Integer userid);
+	@Query(value="DELETE from cart where deliveryId=?1",nativeQuery = true)
+	@Modifying
+	void deleteByDeliveryId(Integer deliveryid);
 }

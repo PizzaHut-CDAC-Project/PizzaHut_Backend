@@ -3,18 +3,22 @@ package com.PizzaHut.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.PizzaHut.dtos.DeliveryDto;
+import com.PizzaHut.dtos.DeliveryStatUpdateDto;
 import com.PizzaHut.entities.DeliveryStatus;
 import com.PizzaHut.services.DeliveryStatusService;
+import com.app.custom_exceptions.ResourceNotFoundException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -63,6 +67,21 @@ public class DeliveryStatusController {
 			return Response.error(e.getMessage());
 		}
 		
+	}
+	
+	@PutMapping("/dStatus/{deliveryId}")
+	public ResponseEntity<?> updateStatus(@PathVariable Integer deliveryId, @RequestBody DeliveryStatUpdateDto deliverystatus){
+		try {
+		String status=statusService.updateDeliveryStatus(deliveryId, deliverystatus);
+		System.out.println(deliverystatus.getDeliverystatus());
+		System.out.println("deliveryid "+deliveryId);
+		return ResponseEntity.ok("Delivery status successfully updated");
+		}catch(ResourceNotFoundException e){
+			return ResponseEntity.notFound().build();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in updating delivery status");
+		}
 	}
 	
 	
