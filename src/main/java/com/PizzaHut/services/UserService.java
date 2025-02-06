@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.PizzaHut.daos.UserDao;
 import com.PizzaHut.dtos.CredentialsDto;
+import com.PizzaHut.dtos.DtoEntityConvertor;
+import com.PizzaHut.dtos.UserDto;
 import com.PizzaHut.entities.User;
 
 
@@ -25,6 +27,9 @@ public class UserService {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@Autowired
+	private DtoEntityConvertor convertor;
 
 	// to check user by email
 	public User searchByEmail(String email) {
@@ -63,5 +68,18 @@ public class UserService {
 				return signinUser;
 			} else
 				return null;
+		}
+
+
+		public User editUsers(int userId, UserDto editUsers) {
+			User checkId = userDao.getById(userId);
+			if (checkId != null) {
+				User updateUsers = convertor.toUserEntity(editUsers);
+				updateUsers.setUserId(checkId.getUserId());
+				updateUsers.setPassword(checkId.getPassword());
+				userDao.save(updateUsers);
+				return updateUsers;
+			}
+			return null;
 		}
 }
