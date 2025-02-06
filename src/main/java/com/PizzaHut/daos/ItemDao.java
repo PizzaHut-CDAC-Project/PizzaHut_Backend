@@ -10,5 +10,4 @@ public interface ItemDao extends JpaRepository<Item, Integer> {
 
 	List<Item> findAllPizza();
 
-	
 }
