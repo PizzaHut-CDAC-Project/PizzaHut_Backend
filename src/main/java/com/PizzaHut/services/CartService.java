@@ -79,6 +79,7 @@ public class CartService {
 			return null;
 		}
  
+ 
 		// get by delivery id
 		public Cart fetchByDeliveryid(Integer deliveryId) {
 			DeliveryStatus delstat=deliveryDao.findById(deliveryId).orElseThrow(()-> new ResourceNotFoundException("invalid delivery id"));
@@ -92,4 +93,7 @@ public class CartService {
 			return null;
 		}
 
+ 
+	 
+ 
 }

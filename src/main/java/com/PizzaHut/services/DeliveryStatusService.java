@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.PizzaHut.daos.AddressDao;
 
 import com.PizzaHut.daos.CartDao;
 import com.PizzaHut.daos.DeliveryStatusDao;
 import com.PizzaHut.dtos.DeliveryDto;
 import com.PizzaHut.dtos.DeliveryStatUpdateDto;
 import com.PizzaHut.dtos.DtoEntityConvertor;
+import com.PizzaHut.dtos.PaymentDto;
+import com.PizzaHut.entities.Address;
 import com.PizzaHut.entities.DeliveryStatus;
+import com.PizzaHut.entities.Payment;
 import com.PizzaHut.entities.User;
 import com.app.custom_exceptions.ResourceNotFoundException;
 
@@ -27,6 +31,11 @@ public class DeliveryStatusService {
 	private CartService cartService;
 	@Autowired
 	private CartDao cartDao;
+	@Autowired 
+	private AddressDao addrDao;
+	@Autowired
+	private DeliveryStatusDao deliveryStatusDao;
+
 	 
 
 	//get list of delivery by userid
@@ -58,5 +67,16 @@ public class DeliveryStatusService {
 		}
 		return "success";
 }
+	
+	public DeliveryStatus addDeliveryStatus(PaymentDto paymentDto,Payment payment) {
+		Address addr = addrDao.findById(paymentDto.getAddresspayId()).orElseThrow(()->new ResourceNotFoundException("invalid address id"));
+		DeliveryStatus deliveryStatus = new DeliveryStatus();
+		deliveryStatus.setUser(addr.getUser());
+		deliveryStatus.setAddress(addr);
+		deliveryStatus.setDeliveryStatus("Order Received");
+		deliveryStatus.setPayment(payment);
+		deliveryStatusDao.save(deliveryStatus);
+		return deliveryStatus;
+	}
 
 }

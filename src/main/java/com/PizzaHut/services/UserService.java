@@ -3,6 +3,8 @@ package com.PizzaHut.services;
 
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +84,26 @@ public class UserService {
 			}
 			return null;
 		}
-		
-		
+
+
+		public List<User> getAllUsers(){
+			List<User> list = userDao.findAll();
+			if(list!=null) {
+				return list;
+			}
+			else {
+				return null;
+			}
+		}
+
+
+		public User getAdmin(CredentialsDto cred) {
+			User signinUser = userDao.findByEmail(cred.getEmail());
+			String rawPasword = cred.getPassword();
+			if (signinUser != null && encoder.matches(rawPasword, signinUser.getPassword()) && signinUser.getRole().equals("Admin")) {
+				return signinUser;
+			} else
+				return null;
+		}
+
 }

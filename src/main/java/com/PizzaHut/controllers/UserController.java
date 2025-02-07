@@ -78,7 +78,7 @@ public class UserController {
 	
 		
 		
-		//to update user
+		//update user
 		@PutMapping("/update/{userId}")
 		public ResponseEntity<?> editUsers(@PathVariable("userId")int userId,
 				@RequestBody UserDto dto)
