@@ -2,6 +2,8 @@ package com.PizzaHut.controllers;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -69,6 +71,22 @@ public class AddressController {
 			}catch (Exception e) {
 				return Response.error(e.getMessage());
 			}
+		}
+		
+		
+		//get all address of a user 
+		@GetMapping("/getaddress/{userId}")
+		public ResponseEntity<?> getAddress(@PathVariable("userId") int userid ){
+			try {
+				List<Address> allAddresses = addressService.getAddresses(userid);
+				if(!allAddresses.isEmpty()) {
+					return Response.success(allAddresses);
+				}else {
+					return Response.error("Please add your address");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}	
 		}
 	
 	
