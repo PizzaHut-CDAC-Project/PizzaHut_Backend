@@ -44,6 +44,19 @@ public class PaymentController {
 			return Response.error(e.getMessage());
 		}
 	}
+	@GetMapping("/showCurrent/{payId}")
+	public ResponseEntity<?> showCurrentPayment(@PathVariable("payId")int payId)
+	{
+		try {
+			Payment curPayment=payService.findPayments(payId);
+			System.out.println(curPayment);
+			if(curPayment==null)
+				return Response.error("No result found");
+			return Response.success(curPayment);
+		} catch (Exception e) {
+			return Response.error(e.getMessage());
+		}
+	}
 	
 	
 	
