@@ -25,7 +25,7 @@ public class DeliveryStatus {
 	private Payment Payment;
 	@ManyToOne
 	@JoinColumn(name="userId")
-	private User User;
+	private User User;9
 
 	@ManyToOne
 	@JoinColumn(name="AddressId")
