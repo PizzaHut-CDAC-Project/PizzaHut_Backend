@@ -57,5 +57,22 @@ public class CartController {
 				return Response.error(e.getMessage());
 			}
 		}
+        
+		// show all cart of a particular user
+		@GetMapping("/{userId}/{status}")
+		public ResponseEntity<?> showAllcartOfAUser(@PathVariable("userId") Integer userid,
+				@PathVariable("status") Integer statusid) {
+			try {
+				System.out.println("--()--()" + statusid);
+				List<Cart> cartsOfUser = cartService.getAllCartOfUser(userid, statusid);
+				if (!cartsOfUser.isEmpty()) {
+					return Response.success(cartsOfUser);
+				} else {
+					return Response.error("Cart is Empty");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
 
 }

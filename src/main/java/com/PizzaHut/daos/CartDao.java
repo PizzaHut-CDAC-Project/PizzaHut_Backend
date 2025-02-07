@@ -1,11 +1,14 @@
 package com.PizzaHut.daos;
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.PizzaHut.entities.Cart;
+import com.PizzaHut.entities.User;
  
 
 public interface CartDao extends JpaRepository<Cart, Integer>{
@@ -19,4 +22,6 @@ public interface CartDao extends JpaRepository<Cart, Integer>{
 	@Query(value="DELETE from cart where deliveryId=?1",nativeQuery = true)
 	@Modifying
 	void deleteByDeliveryId(Integer deliveryid);
+	@Query(value = "select * from cart where userid=?1 and cartstatus=?2 order by cartid desc;", nativeQuery = true)
+	List<Cart> findByUserStatus(User user,Integer status);
 }
