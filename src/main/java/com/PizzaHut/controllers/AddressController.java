@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,28 @@ public class AddressController {
 			return Response.error(e.getMessage());
 		}
 	}
+	
+	
+	//Update address
+		@PutMapping("/updateAddress/{AddressId}")
+		public ResponseEntity<?> updateAddress(@PathVariable("AddressId")int addId, @RequestBody AddressDto addressdto){
+			try {
+				System.out.println(addressdto);
+				Address newAddress = addressService.updateAddress(addId, addressdto);
+				if(newAddress != null) {
+					return Response.success("Address added");
+				}else {
+					return Response.error("Error");
+				}
+			}catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
+	
+	
+	
+	
+	
 	
 }
 
