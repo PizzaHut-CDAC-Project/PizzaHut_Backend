@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.PizzaHut.daos.ItemDao;
+import com.PizzaHut.daos.ItemImageDao;
+import com.PizzaHut.daos.ItemSizeDao;
 import com.PizzaHut.dtos.ItemDto;
 import com.PizzaHut.entities.Item;
 import com.app.custom_exceptions.ResourceNotFoundException;
@@ -14,6 +16,12 @@ public class ItemService {
 
 	@Autowired
 	private ItemDao itemDao;
+	
+	@Autowired
+	private ItemSizeDao sizeDao;
+	
+	@Autowired
+	private ItemImageDao imageDao;
 
 	public Item addPizza(ItemDto pizzaDto) {
 		ModelMapper mapper = new ModelMapper();
@@ -35,6 +43,7 @@ public class ItemService {
 		item.setItemName(itemDto.getItemName());
 		item.setType(itemDto.getType());
 		return "updated successfully";
+	}
 
 	// show selected item by it's Id
 	public Item findByItemId(int itemId) {
@@ -49,6 +58,13 @@ public class ItemService {
 		}
 		return null;
 
+	}
+
+	public String deleteItem(Integer itemId) {
+		sizeDao.deleteAllByItemId(itemId);
+		imageDao.deleteAllByItemId(itemId);
+		itemDao.deleteById(itemId);
+		return itemId+" deleted successfully";
 	}
 
 }
