@@ -11,6 +11,5 @@ import com.PizzaHut.entities.User;
 public interface AddressDao extends JpaRepository<Address, Integer> {
 	List<Address> findByUser(User user);
 
-public interface AddressDao extends JpaRepository<Address, Integer> {
 
 }
