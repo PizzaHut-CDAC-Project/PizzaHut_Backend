@@ -2,6 +2,8 @@ package com.PizzaHut.services;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import com.PizzaHut.daos.AddressDao;
 import com.PizzaHut.dtos.AddressDto;
 import com.PizzaHut.dtos.DtoEntityConvertor;
 import com.PizzaHut.entities.Address;
+import com.PizzaHut.entities.User;
 
 
 
@@ -57,6 +60,19 @@ public class AddressService {
 			}
 			return null;
 		}
+
+
+
+		// get addresses of user
+		public List<Address> getAddresses(int userid){
+			Address toGetAddress = new Address();
+			User getUserAdd= new User();
+			getUserAdd.setUserId(userid);
+			toGetAddress.setUser(getUserAdd);
+			List<Address> getFinalAddress = addressDao.findByUser(getUserAdd);
+			return getFinalAddress;
+		}
+		
 	
 }
 
