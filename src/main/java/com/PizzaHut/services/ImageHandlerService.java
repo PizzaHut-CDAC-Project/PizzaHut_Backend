@@ -17,7 +17,13 @@ import com.PizzaHut.daos.ItemImageDao;
 import com.PizzaHut.daos.ToppingDao;
 import com.PizzaHut.daos.ToppingImageDao;
 import com.PizzaHut.dtos.ApiResponse;
+
 import com.PizzaHut.entities.Item;
+
+
+import com.PizzaHut.entities.Item;
+
+
 import com.PizzaHut.entities.ItemImage;
 import com.PizzaHut.entities.Topping;
 import com.PizzaHut.entities.ToppingImage;
@@ -38,11 +44,16 @@ public class ImageHandlerService {
 	@Autowired
 	private ToppingDao toppingDao;
 
+
+	
+	
+	
 	@Autowired
 	private ItemImageDao itemImgDao;
 	
 	@Autowired 
 	private ItemDao itemDao;
+
 
 	public byte[] getToppingImage(int toppingId) throws IOException {
 		ToppingImage toppingimg = toppingImgDao.findById(toppingId)
@@ -70,9 +81,16 @@ public class ImageHandlerService {
 
 	}
 
+public byte[] getPizzaImage(int itemId) throws IOException {
+		
+		ItemImage pizza = itemImgDao.findByItemId(itemId);
+				
+
+
 	public byte[] getPizzaImage(int itemId) throws IOException {
 
 		ItemImage pizza = itemImgDao.findByItemId(itemId);
+
 
 		String path = pizza.getData();
 		if (path == null) {

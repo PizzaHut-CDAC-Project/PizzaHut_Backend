@@ -13,6 +13,7 @@ import com.PizzaHut.dtos.CartDtoWithoutTopping;
 import com.PizzaHut.dtos.DtoEntityConvertor;
 import com.PizzaHut.entities.Cart;
 import com.PizzaHut.entities.DeliveryStatus;
+import com.PizzaHut.entities.User;
 import com.app.custom_exceptions.ResourceNotFoundException;
 
 @Service
@@ -49,10 +50,30 @@ public class CartService {
 		return "cart Status updated "+delId+" "+userid;
 	}
 	
+ 
+	// show all cart of a particular user
+		public List<Cart> getAllCartOfUser(int userid, int status) {
+			User getCart = new User();
+			getCart.setUserId(userid);
+			List<Cart> cartsOfUser = cartDao.findByUserStatus(getCart, status);
+			return cartsOfUser;
+		}
+ 
 	// delete from cart
 		public int deleteByCartId(int cartId) {
 			cartDao.deleteById(cartId);
 			return 1;
 		}
 	 
+		// get by cart id
+		public List<Cart> fetchByid(int cartid) {
+			Cart byId = cartDao.getById(cartid);
+			List<Cart> cartById = new ArrayList<Cart>();
+			if (byId != null) {
+				cartById.add(byId);
+				return cartById;
+			}
+			return null;
+		}
+ 
 }
