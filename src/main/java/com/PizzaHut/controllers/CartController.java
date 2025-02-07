@@ -85,5 +85,19 @@ public class CartController {
 				return Response.error("id not found");
 		}
 		 
-
+ 
+		// Get by cartId
+		@GetMapping("/{cartid}")
+		public ResponseEntity<?> getcartById(@PathVariable("cartid") int cartid) {
+			try {
+				List<Cart> cartById = cartService.fetchByid(cartid);
+				if (!cartById.isEmpty()) {
+					return Response.success(cartById);
+				} else {
+					return Response.error("Cart Item Not Found");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
 }
