@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PizzaHut.daos.CartDao;
+import com.PizzaHut.daos.DeliveryStatusDao;
 import com.PizzaHut.dtos.CartDto;
 import com.PizzaHut.dtos.CartDtoWithoutTopping;
 import com.PizzaHut.dtos.DtoEntityConvertor;
@@ -23,6 +24,8 @@ public class CartService {
 	private CartDao cartDao;
 	@Autowired
 	private DtoEntityConvertor convertor;
+	@Autowired
+	private DeliveryStatusDao deliveryDao;
  
 	// add in cart with topping
 		public Cart addTocart(CartDto cartDto) {
@@ -76,4 +79,17 @@ public class CartService {
 			return null;
 		}
  
+		// get by delivery id
+		public Cart fetchByDeliveryid(Integer deliveryId) {
+			DeliveryStatus delstat=deliveryDao.findById(deliveryId).orElseThrow(()-> new ResourceNotFoundException("invalid delivery id"));
+			System.out.println(delstat);
+			Cart cartById = cartDao.findByDeliveryId(delstat);
+			
+			if (cartById!=null) {
+				return cartById;
+			}
+			
+			return null;
+		}
+
 }
