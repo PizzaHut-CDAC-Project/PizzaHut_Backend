@@ -78,6 +78,21 @@ public class DtoEntityConvertor {
 			convertedcart.setCartstatus(1);
 			return convertedcart;
 		}
+
+		//addressDto to Address
+		public Address toAddressEntity(AddressDto addressDto) {
+			Address convertedAddress = new Address();
+			User useraddress = new User();
+			useraddress.setUserId(addressDto.getUserId());
+			convertedAddress.setUser(useraddress);
+			convertedAddress.setPlotNo(addressDto.getPlotNo());
+			convertedAddress.setStreetName(addressDto.getStreetName());
+			convertedAddress.setCity(addressDto.getCity());
+			convertedAddress.setDistrict(addressDto.getDistrict());
+			convertedAddress.setState(addressDto.getState());
+			convertedAddress.setPincode(addressDto.getPincode());
+			return convertedAddress;
+		}
 	 
 }
 
