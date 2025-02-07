@@ -25,6 +25,8 @@ public interface CartDao extends JpaRepository<Cart, Integer>{
  
 	@Query(value = "select * from cart where userid=?1 and cartstatus=?2 order by cartid desc;", nativeQuery = true)
 	List<Cart> findByUserStatus(User user,Integer status);
+	@Query(value = "select sum(price*quantity) as totalamount from cart where userid=?1", nativeQuery = true)
+	Double findTotalAmount(Integer userid);
  
 	
 	 

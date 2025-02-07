@@ -40,9 +40,6 @@ public class ImageHandlerService {
 	private ToppingDao toppingDao;
 
 
-	
-	
-	
 	@Autowired
 	private ItemImageDao itemImgDao;
 
@@ -73,10 +70,6 @@ public class ImageHandlerService {
 
 	}
 
-public byte[] getPizzaImage(int itemId) throws IOException {
-		
-		ItemImage pizza = itemImgDao.findByItemId(itemId);
-				
 
 
 	public byte[] getPizzaImage(int itemId) throws IOException {
