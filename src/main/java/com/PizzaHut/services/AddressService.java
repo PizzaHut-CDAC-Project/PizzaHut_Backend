@@ -42,6 +42,21 @@ public class AddressService {
 			
 			return addressDao.save(add);
 		}
+
+
+
+		//Update address of a users
+		public Address updateAddress(int AddressId, AddressDto addressdto) {
+			Address addressById =  getAddressById(AddressId);
+			if(addressById != null){
+				Address updatedAddress = convertor.toAddressEntity(addressdto);
+				updatedAddress.setAddressId(addressById.getAddressId());
+				System.out.println(""+updatedAddress);
+				addressDao.save(updatedAddress);
+				return updatedAddress;
+			}
+			return null;
+		}
 	
 }
 
