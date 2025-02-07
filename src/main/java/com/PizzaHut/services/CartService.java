@@ -13,6 +13,7 @@ import com.PizzaHut.dtos.CartDtoWithoutTopping;
 import com.PizzaHut.dtos.DtoEntityConvertor;
 import com.PizzaHut.entities.Cart;
 import com.PizzaHut.entities.DeliveryStatus;
+import com.PizzaHut.entities.User;
 import com.app.custom_exceptions.ResourceNotFoundException;
 
 @Service
@@ -54,5 +55,6 @@ public class CartService {
 			cartDao.deleteById(cartId);
 			return 1;
 		}
+	 
 	 
 }

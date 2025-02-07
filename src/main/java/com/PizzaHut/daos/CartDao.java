@@ -1,6 +1,7 @@
 package com.PizzaHut.daos;
 
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,6 @@ public interface CartDao extends JpaRepository<Cart, Integer>{
 	@Query(value="DELETE from cart where deliveryId=?1",nativeQuery = true)
 	@Modifying
 	void deleteByDeliveryId(Integer deliveryid);
+	
+	 
 }
