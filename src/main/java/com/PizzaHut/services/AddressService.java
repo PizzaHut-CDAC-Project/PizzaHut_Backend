@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PizzaHut.daos.AddressDao;
+import com.PizzaHut.dtos.AddressDto;
+import com.PizzaHut.dtos.DtoEntityConvertor;
 import com.PizzaHut.entities.Address;
 
 
@@ -18,6 +20,9 @@ public class AddressService {
 	private AddressDao addressDao;
 
 	
+	@Autowired
+	private DtoEntityConvertor convertor;
+	
 	
 	//findByAddressId
 	public Address getAddressById(int id) {
@@ -28,7 +33,15 @@ public class AddressService {
 		 }
 		 return null;
 	}
-	
+
+
+
+	//save address of a users
+		public Address addAddress(AddressDto addressdto) {
+			Address add = convertor.toAddressEntity(addressdto);
+			
+			return addressDao.save(add);
+		}
 	
 }
 
