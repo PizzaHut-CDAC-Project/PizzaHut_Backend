@@ -50,6 +50,7 @@ public class CartService {
 		return "cart Status updated "+delId+" "+userid;
 	}
 	
+ 
 	// show all cart of a particular user
 		public List<Cart> getAllCartOfUser(int userid, int status) {
 			User getCart = new User();
@@ -57,4 +58,13 @@ public class CartService {
 			List<Cart> cartsOfUser = cartDao.findByUserStatus(getCart, status);
 			return cartsOfUser;
 		}
+ 
+	// delete from cart
+		public int deleteByCartId(int cartId) {
+			cartDao.deleteById(cartId);
+			return 1;
+		}
+	 
+	 
+ 
 }
