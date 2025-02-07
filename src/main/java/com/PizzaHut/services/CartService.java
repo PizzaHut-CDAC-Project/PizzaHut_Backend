@@ -65,6 +65,15 @@ public class CartService {
 			return 1;
 		}
 	 
-	 
+		// get by cart id
+		public List<Cart> fetchByid(int cartid) {
+			Cart byId = cartDao.getById(cartid);
+			List<Cart> cartById = new ArrayList<Cart>();
+			if (byId != null) {
+				cartById.add(byId);
+				return cartById;
+			}
+			return null;
+		}
  
 }
