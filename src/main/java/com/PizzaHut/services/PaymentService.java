@@ -43,6 +43,12 @@ public class PaymentService {
 		}
 		throw new ResourceNotFoundException("total amount is zero");
 	}
+	public Payment findPayments(int payId)
+	{
+		Payment togetPayments=paymentDao.getById(payId);
+		return togetPayments;
+		
+	}
 	
 	
 }
