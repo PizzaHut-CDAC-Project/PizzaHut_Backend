@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.PizzaHut.daos.ItemImageDao;
 import com.PizzaHut.daos.ToppingDao;
 import com.PizzaHut.daos.ToppingImageDao;
 import com.PizzaHut.dtos.ApiResponse;
+import com.PizzaHut.entities.Item;
+import com.PizzaHut.entities.ItemImage;
 import com.PizzaHut.entities.Topping;
 import com.PizzaHut.entities.ToppingImage;
 import com.app.custom_exceptions.ResourceNotFoundException;
@@ -37,6 +40,8 @@ public class ImageHandlerService {
 	@Autowired
 	private ToppingDao toppingDao;
 
+	
+	
 	
 	public byte[] getToppingImage(int toppingId) throws IOException {
 		ToppingImage toppingimg = toppingImgDao.findById(toppingId)
@@ -63,4 +68,16 @@ public class ImageHandlerService {
 		return new ApiResponse("Pizza Image Uploaded Sucessfully !!!");
 
 	}
+public byte[] getPizzaImage(int itemId) throws IOException {
+		
+		ItemImage pizza = itemImgDao.findByItemId(itemId);
+				
+		String path = pizza.getData();
+		if (path == null) {
+			throw new ResourceNotFoundException("Image does Not Exists !!!!");
+		}
+		return Files.readAllBytes(Paths.get(path));
+	}
+
+	
 }

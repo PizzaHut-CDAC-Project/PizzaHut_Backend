@@ -40,6 +40,11 @@ public class toppingImgController {
 	}
 
 	
+	@GetMapping(value = "/getpizzathumbnail/{itemId}", produces = { MediaType.IMAGE_GIF_VALUE,
+			MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+	public ResponseEntity<?> getPizzaImage(@PathVariable Integer itemId) throws IOException {
+		return new ResponseEntity<>(fileService.getPizzaImage(itemId), HttpStatus.OK);
+	}
 	
 	
 
