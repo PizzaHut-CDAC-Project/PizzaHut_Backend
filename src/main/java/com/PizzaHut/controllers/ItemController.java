@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,6 +83,20 @@ public class ItemController {
 				return Response.error("No result found");
 			return Response.success(listByItem);
 		} catch (Exception e) {
+			return Response.error(e.getMessage());
+		}
+	}
+	
+	
+	@DeleteMapping("/delete/{itemId}")
+	public ResponseEntity<?> deleteItemById(@PathVariable Integer itemId) {
+		try {
+			System.out.println("in /delete/${itemId}");
+			String deleteStatus=itemService.deleteItem(itemId);
+			if (deleteStatus == null)
+				return Response.error("No result found");
+			return Response.success(deleteStatus);
+		}catch(Exception e) {
 			return Response.error(e.getMessage());
 		}
 	}
