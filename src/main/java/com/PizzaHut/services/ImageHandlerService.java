@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.PizzaHut.daos.ItemDao;
 import com.PizzaHut.daos.ItemImageDao;
 import com.PizzaHut.daos.ToppingDao;
 import com.PizzaHut.daos.ToppingImageDao;
 import com.PizzaHut.dtos.ApiResponse;
 
 import com.PizzaHut.entities.Item;
+
+
+import com.PizzaHut.entities.Item;
+
 
 import com.PizzaHut.entities.ItemImage;
 import com.PizzaHut.entities.Topping;
@@ -42,6 +47,9 @@ public class ImageHandlerService {
 
 	@Autowired
 	private ItemImageDao itemImgDao;
+	
+	@Autowired 
+	private ItemDao itemDao;
 
 
 	public byte[] getToppingImage(int toppingId) throws IOException {
@@ -82,6 +90,21 @@ public class ImageHandlerService {
 			throw new ResourceNotFoundException("Image does Not Exists !!!!");
 		}
 		return Files.readAllBytes(Paths.get(path));
+	}
+
+	public ApiResponse uploadPizzaImage(int Id, MultipartFile imageFile) throws IOException {
+		Item pizza = itemDao.findByItemid(Id)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Pizza Id !!!!!"));
+		String targetPath = pizzaImageFolder + File.separator + "pizza" + pizza.getItemid()+ "."
+				+ imageFile.getOriginalFilename().split("\\.")[1];
+		System.out.println("Pizza Image Path : " + targetPath);
+		ItemImage img=new ItemImage();
+		Files.copy(imageFile.getInputStream(), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);
+		img.setData(targetPath);
+		img.setItem(pizza);
+		itemImgDao.save(img);
+		
+		return new ApiResponse("Pizza Image Uploaded Sucessfully !!!");
 	}
 
 	
