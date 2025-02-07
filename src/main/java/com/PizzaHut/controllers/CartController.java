@@ -101,5 +101,24 @@ public class CartController {
 			}
 		}
 		
+ 
+		// Get by deliveryId
+		@GetMapping("/deliveryid/{deliveryid}")
+		public ResponseEntity<?> getcartByDeliveryId(@PathVariable Integer deliveryid) {
+			try {
+				System.out.println(deliveryid);
+				Cart cartByDeliveryId = cartService.fetchByDeliveryid(deliveryid);
+				System.out.println(cartByDeliveryId);
+				if (cartByDeliveryId!=null) {
+					return Response.success(cartByDeliveryId);
+				} else {
+					return Response.error("Cart with delivery id Not Found");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
+ 
 		 
+ 
 }

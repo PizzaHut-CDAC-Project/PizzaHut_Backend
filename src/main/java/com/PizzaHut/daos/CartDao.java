@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.PizzaHut.entities.Cart;
+import com.PizzaHut.entities.DeliveryStatus;
 import com.PizzaHut.entities.User;
  
 
@@ -25,8 +26,13 @@ public interface CartDao extends JpaRepository<Cart, Integer>{
  
 	@Query(value = "select * from cart where userid=?1 and cartstatus=?2 order by cartid desc;", nativeQuery = true)
 	List<Cart> findByUserStatus(User user,Integer status);
+ 
+	
+	Cart findByDeliveryId(DeliveryStatus del);
+ 
 	@Query(value = "select sum(price*quantity) as totalamount from cart where userid=?1", nativeQuery = true)
 	Double findTotalAmount(Integer userid);
+ 
  
 	
 	 
