@@ -9,7 +9,10 @@ import com.PizzaHut.entities.ItemImage;
 public interface ItemImageDao extends JpaRepository<ItemImage, Integer> {
 
 	@Modifying
-	@Query(value="DELETE from itemimage WHERE itemId=:itemId",nativeQuery = true)
+	@Query(value = "DELETE from itemimage WHERE itemId=:itemId", nativeQuery = true)
 	void deleteAllByItemId(Integer itemId);
+
+	@Query(value = "SELECT * from itemimage WHERE itemId=:itemId order by itemImgId desc limit 1;", nativeQuery = true)
+	ItemImage findByItemId(int itemId);
 
 }
