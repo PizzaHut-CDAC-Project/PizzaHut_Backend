@@ -93,7 +93,11 @@ public class CartService {
 			return null;
 		}
 
- 
+		// update cartStatus
+		public String changeCartStatus(int userid) {
+			cartDao.changeStatus(userid);
+			return "cart Status updated";
+		}
 	 
  
 }
