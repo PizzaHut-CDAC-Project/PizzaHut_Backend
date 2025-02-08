@@ -7,9 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PizzaHut.dtos.ItemSizeDto;
 import com.PizzaHut.entities.ItemSize;
 import com.PizzaHut.services.ItemSizeService;
 
@@ -33,6 +36,18 @@ public class ItemSizeController {
 		} catch (Exception e) {
 			return Response.error(e.getMessage());
 		}
+	}
+
+	@PostMapping("/addItemSize")
+	public ResponseEntity<?> addPizzaSize(@RequestBody ItemSizeDto itemSizeDto) {
+		System.out.println(itemSizeDto);
+		ItemSize itemSize = itemSizeService.addItemSize(itemSizeDto);
+		if (itemSize.getItem() != null) {
+			return Response.success("pizza size inserted successfully");
+		} else {
+			return Response.error("Failed to insert this pizza size");
+		}
+
 	}
 
 }
