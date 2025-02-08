@@ -72,6 +72,14 @@ public class AddressService {
 			List<Address> getFinalAddress = addressDao.findByUser(getUserAdd);
 			return getFinalAddress;
 		}
+
+
+
+		//delete address
+		public int deleteByAddressId(int addressId) {
+			addressDao.deleteById(addressId);
+			return 1;
+		}
 		
 	
 }
