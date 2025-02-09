@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -100,4 +101,42 @@ public class CartController {
 				return Response.error(e.getMessage());
 			}
 		}
+		
+ 
+		// Get by deliveryId
+		@GetMapping("/deliveryid/{deliveryid}")
+		public ResponseEntity<?> getcartByDeliveryId(@PathVariable Integer deliveryid) {
+			try {
+				System.out.println(deliveryid);
+				Cart cartByDeliveryId = cartService.fetchByDeliveryid(deliveryid);
+				System.out.println(cartByDeliveryId);
+				if (cartByDeliveryId!=null) {
+					return Response.success(cartByDeliveryId);
+				} else {
+					return Response.error("Cart with delivery id Not Found");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
+		
+		// update cartStatus
+		@PatchMapping("/updateCartStatus/{userId}/{deliveryId}")
+		public ResponseEntity<?> updateCartStatus(@PathVariable Integer userId,@PathVariable Integer deliveryId) {
+			try {
+				System.out.println("int updatecart");
+				System.out.println("userId: "+userId+"deliveryID: "+deliveryId);
+				String changed = cartService.addForeignKey(deliveryId,userId);
+				if (changed != null) {
+					return Response.success(changed);
+				} else {
+					return Response.error("Cart is Empty");
+				}
+			} catch (Exception e) {
+				return Response.error(e.getMessage());
+			}
+		}
+ 
+		 
+ 
 }
