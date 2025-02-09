@@ -25,7 +25,7 @@ public class DeliveryStatus {
 	private Payment Payment;
 	@ManyToOne
 	@JoinColumn(name="userId")
-	private User User;
+	private User user;
 
 	@ManyToOne
 	@JoinColumn(name="AddressId")
@@ -38,11 +38,11 @@ public class DeliveryStatus {
 		this.deliveryTime = LocalDateTime.now();
 	}
 
-	public DeliveryStatus(int deliveryId, Payment Payment, User User, Address address, String deliveryStatus) {
+	public DeliveryStatus(int deliveryId, Payment Payment, User user, Address address, String deliveryStatus) {
 		super();
 		this.deliveryId = deliveryId;
 		this.Payment = Payment;
-		this.User = User;
+		this.user = user;
 		this.address = address;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryTime = LocalDateTime.now();
@@ -68,11 +68,11 @@ public class DeliveryStatus {
 	}
 
 	public User getUser() {
-		return User;
+		return user;
 	}
 
 	public void setUser(User User) {
-		this.User = User;
+		this.user = User;
 	}
 
 	public Address getAddress() {
@@ -101,7 +101,7 @@ public class DeliveryStatus {
 
 	@Override
 	public String toString() {
-		return "DeliveryStatus [deliveryId=" + deliveryId + ", Payment=" + Payment + ", User=" + User + ", address="
+		return "DeliveryStatus [deliveryId=" + deliveryId + ", Payment=" + Payment + ", User=" + user + ", address="
 				+ address + ", deliveryStatus=" + deliveryStatus + ", deliveryTime=" + deliveryTime + "]";
 	}
 
