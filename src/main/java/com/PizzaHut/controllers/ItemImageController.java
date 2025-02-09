@@ -3,9 +3,12 @@ package com.PizzaHut.controllers;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +18,9 @@ import com.PizzaHut.services.ImageHandlerService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/itemImage")
 public class ItemImageController {
 
 	@Autowired

@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,23 @@ public class ImageHandlerService {
 	@Autowired 
 	private ItemDao itemDao;
 
+	
+	@PostConstruct
+	public void myInit() {
+		// checks if folder exists and  if doesnt exist it creates one
+		File pizzaImagePath = new File(pizzaImageFolder);
+		File toppingImagePath=new File(toppingImageFolder);
+		if (!pizzaImagePath.exists()) {
+			pizzaImagePath.mkdirs();
+		}
+		if(!toppingImagePath.exists()) {
+			toppingImagePath.mkdirs();
+		}
+		else {
+			System.out.println("folders alrdy exists....");
+		}
+
+	}
 
 	public byte[] getToppingImage(int toppingId) throws IOException {
 		ToppingImage toppingimg = toppingImgDao.findById(toppingId)

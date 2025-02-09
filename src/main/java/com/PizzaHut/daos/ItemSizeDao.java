@@ -1,5 +1,7 @@
 package com.PizzaHut.daos;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,9 @@ public interface ItemSizeDao extends JpaRepository<ItemSize, Integer> {
 	@Modifying
 	@Query(value="DELETE from itemsize WHERE itemId=:itemId",nativeQuery = true)
 	void deleteAllByItemId(Integer itemId);
+
+	@Query(value="SELECT * from itemsize WHERE itemId=:itemId",nativeQuery = true)
+	List<ItemSize> getSizeOfPizza(int itemId);
 
 	
 }
