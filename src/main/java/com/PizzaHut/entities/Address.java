@@ -20,7 +20,7 @@ public class Address {
 	private int AddressId;
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "userId")
-	private User user;
+	private Users user;
 	private String plotNo;
 	private String streetName;
 	private String city;
@@ -32,7 +32,7 @@ public class Address {
 		super();
 	}
 
-	public Address(int addressId, User user, String plotNo, String streetName, String city, String district,
+	public Address(int addressId, Users user, String plotNo, String streetName, String city, String district,
 			String state, String pincode) {
 		super();
 		AddressId = addressId;
@@ -55,11 +55,11 @@ public class Address {
 		AddressId = addressId;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 

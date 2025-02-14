@@ -2,16 +2,16 @@ package com.PizzaHut.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.PizzaHut.daos.ItemDao;
-import com.PizzaHut.daos.ItemImageDao;
-import com.PizzaHut.daos.ItemSizeDao;
-import com.PizzaHut.dtos.ItemDto;
+import com.PizzaHut.dao.ItemDao;
+import com.PizzaHut.dao.ItemImageDao;
+import com.PizzaHut.dao.ItemSizeDao;
+import com.PizzaHut.dto.ApiResponse;
+import com.PizzaHut.dto.ItemDto;
 import com.PizzaHut.entities.Item;
 import com.app.custom_exceptions.ResourceNotFoundException;
 
@@ -27,20 +27,33 @@ public class ItemService {
 	
 	@Autowired
 	private ItemImageDao imageDao;
-
 	public Item addPizza(ItemDto pizzaDto) {
-		ModelMapper mapper = new ModelMapper();
-		Item pizza = new Item();
-		mapper.map(pizzaDto, pizza);
-		itemDao.save(pizza);
-		return pizza;
+		ModelMapper mapper=new ModelMapper();
+			Item pizza= new Item();
+			mapper.map(pizzaDto,pizza);
+			itemDao.save(pizza);
+		
+	return pizza;
 	}
-
+	
 	// show all items in the list
-	public List<Item> findAllItem() {
-		return itemDao.findAllPizza();
-	}
+		public List<Item> findAllItem() {
+			return itemDao.findAllPizza();
+		}
 
+	// show selected item by it's Id
+	public Item findByItemId(int itemId) {
+		Item item = itemDao.getById(itemId);
+		return item;
+	}
+	
+	public List<Item> findByType(String type){
+		List<Item> listBytype = itemDao.findByType(type);
+		if(listBytype != null) {
+			return listBytype;
+		}
+		return null;
+	}
 
 	public String updateItem(Integer itemId, ItemDto itemDto) {
 		Item item= itemDao.findById(itemId).orElseThrow(()->new ResourceNotFoundException("No such item exists"));
@@ -50,26 +63,11 @@ public class ItemService {
 		return "updated successfully";
 	}
 
-	// show selected item by it's Id
-	public Item findByItemId(int itemId) {
-		Item item = itemDao.getById(itemId);
-		return item;
-	}
-
-	public List<Item> findByType(String type) {
-		List<Item> listBytype = itemDao.findByType(type);
-		if(listBytype != null) {
-			return listBytype;
-		}
-		return null;
-
-	}
-
 	public String deleteItem(Integer itemId) {
+		
 		sizeDao.deleteAllByItemId(itemId);
 		imageDao.deleteAllByItemId(itemId);
 		itemDao.deleteById(itemId);
 		return itemId+" deleted successfully";
 	}
-
 }

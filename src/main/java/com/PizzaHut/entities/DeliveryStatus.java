@@ -22,10 +22,10 @@ public class DeliveryStatus {
 	private int deliveryId;
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="payId")
-	private Payment Payment;
+	private Payments payments;
 	@ManyToOne
 	@JoinColumn(name="userId")
-	private User user;
+	private Users users;
 
 	@ManyToOne
 	@JoinColumn(name="AddressId")
@@ -38,11 +38,11 @@ public class DeliveryStatus {
 		this.deliveryTime = LocalDateTime.now();
 	}
 
-	public DeliveryStatus(int deliveryId, Payment Payment, User user, Address address, String deliveryStatus) {
+	public DeliveryStatus(int deliveryId, Payments payments, Users users, Address address, String deliveryStatus) {
 		super();
 		this.deliveryId = deliveryId;
-		this.Payment = Payment;
-		this.user = user;
+		this.payments = payments;
+		this.users = users;
 		this.address = address;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryTime = LocalDateTime.now();
@@ -59,20 +59,20 @@ public class DeliveryStatus {
 
 	
 
-	public Payment getPayment() {
-		return Payment;
+	public Payments getPayments() {
+		return payments;
 	}
 
-	public void setPayment(Payment Payment) {
-		this.Payment = Payment;
+	public void setPayments(Payments payments) {
+		this.payments = payments;
 	}
 
-	public User getUser() {
-		return user;
+	public Users getUsers() {
+		return users;
 	}
 
-	public void setUser(User User) {
-		this.user = User;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	public Address getAddress() {
@@ -101,7 +101,7 @@ public class DeliveryStatus {
 
 	@Override
 	public String toString() {
-		return "DeliveryStatus [deliveryId=" + deliveryId + ", Payment=" + Payment + ", User=" + user + ", address="
+		return "DeliveryStatus [deliveryId=" + deliveryId + ", payments=" + payments + ", users=" + users + ", address="
 				+ address + ", deliveryStatus=" + deliveryStatus + ", deliveryTime=" + deliveryTime + "]";
 	}
 

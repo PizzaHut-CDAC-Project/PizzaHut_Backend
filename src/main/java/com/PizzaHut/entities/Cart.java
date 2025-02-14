@@ -20,13 +20,13 @@ public class Cart {
 	private int cartId;
 	@OneToOne
 	@JoinColumn(name = "userId")
-	private User user;
+	private Users user;
 	@ManyToOne
 	@JoinColumn(name = "sizeId")
 	private ItemSize itemsize;
 	@ManyToOne
 	@JoinColumn(name = "toppingId")
-	private Topping Topping;
+	private Toppings toppings;
 	private int quantity;
 	private double price;
 	private int cartstatus;
@@ -38,13 +38,13 @@ public class Cart {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cart(int cartId, User user, ItemSize itemsize, Topping Topping, int quantity, double price,
+	public Cart(int cartId, Users user, ItemSize itemsize, Toppings toppings, int quantity, double price,
 			int cartstatus, DeliveryStatus deliveryId) {
 		super();
 		this.cartId = cartId;
 		this.user = user;
 		this.itemsize = itemsize;
-		this.Topping = Topping;
+		this.toppings = toppings;
 		this.quantity = quantity;
 		this.price = price;
 		this.cartstatus = cartstatus;
@@ -60,11 +60,11 @@ public class Cart {
 		this.cartId = cartId;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 
@@ -76,12 +76,12 @@ public class Cart {
 		this.itemsize = itemsize;
 	}
 
-	public Topping getTopping() {
-		return Topping;
+	public Toppings getToppings() {
+		return toppings;
 	}
 
-	public void setTopping(Topping Topping) {
-		this.Topping = Topping;
+	public void setToppings(Toppings toppings) {
+		this.toppings = toppings;
 	}
 
 	public int getQuantity() {
@@ -118,7 +118,7 @@ public class Cart {
 
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", user=" + user + ", itemsize=" + itemsize + ", Topping=" + Topping
+		return "Cart [cartId=" + cartId + ", user=" + user + ", itemsize=" + itemsize + ", toppings=" + toppings
 				+ ", quantity=" + quantity + ", price=" + price + ", cartstatus=" + cartstatus + ", deliveryId="
 				+ deliveryId + "]";
 	}
