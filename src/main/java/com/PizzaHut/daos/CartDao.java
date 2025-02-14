@@ -11,7 +11,6 @@ import com.PizzaHut.entities.Cart;
 import com.PizzaHut.entities.DeliveryStatus;
 import com.PizzaHut.entities.User;
  
-
 public interface CartDao extends JpaRepository<Cart, Integer>{
 	
 	@Query(value = "update cart set cartstatus=0 where userId =?1", nativeQuery = true)
