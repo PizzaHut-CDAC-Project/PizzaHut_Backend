@@ -58,26 +58,26 @@ public class SecurityConfig {
 //	                .antMatchers("/user/**").hasAuthority("User")
 
 	                // Admin-Specific Endpoints (Only Admins Can Access)
-//	                .antMatchers("/admin/**").hasAuthority("Admin")
-//
-//	                // Shared Endpoints (Both Users & Admins Can Access)
-//	               
-//	                .antMatchers("/toppings/**").hasAnyAuthority("User", "Admin")
-//	                .antMatchers("/payment/**").hasAnyAuthority("User", "Admin")
-//
-//	                // Feedback API (Only Logged-in Users Can Submit Feedback)
-//	                .antMatchers("/feedback/**").authenticated()
-//
-//	                // Delivery Status API (Only Admins Can Update Delivery Status)
-//	                .antMatchers("/deliverystatus/**").hasAuthority("Admin")
-//	                
-//	                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/user/signin").permitAll()
-//
-//	                // Image API (Public Access Allowed)
-//	                .antMatchers("/image/**").permitAll()
-//
-//	                // Any Other Endpoint Requires Authentication
-//	                .anyRequest().authenticated()
+	                .antMatchers("/admin/**").hasAuthority("Admin")
+
+	                // Shared Endpoints (Both Users & Admins Can Access)
+	               
+	                .antMatchers("/toppings/**").hasAnyAuthority("User", "Admin")
+	                .antMatchers("/payment/**").hasAnyAuthority("User", "Admin")
+
+	                // Feedback API (Only Logged-in Users Can Submit Feedback)
+	                .antMatchers("/feedback/**").authenticated()
+
+	                // Delivery Status API (Only Admins Can Update Delivery Status)
+	                .antMatchers("/deliverystatus/**").hasAuthority("Admin")
+	                
+	                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/user/signin").permitAll()
+
+	                // Image API (Public Access Allowed)
+	                .antMatchers("/image/**").permitAll()
+
+	                // Any Other Endpoint Requires Authentication
+	                .anyRequest().authenticated()
 	        )
 	        .httpBasic(Customizer.withDefaults())
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
